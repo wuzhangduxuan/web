@@ -12,9 +12,6 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/1/15.
  */
-public class PdfView extends AbstractPdfView {
-    @Override
-    protected void buildPdfDocument(Map<String, Object> map, Document document, com.lowagie.text.pdf.PdfWriter pdfWriter, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+public class PdfView {
 
-    }
 }
