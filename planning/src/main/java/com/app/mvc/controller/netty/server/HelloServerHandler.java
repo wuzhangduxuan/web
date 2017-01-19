@@ -22,7 +22,7 @@ import java.net.InetAddress;
 //地址是import io.netty.channel.ChannelHandler.Sharable;
 @ChannelHandler.Sharable
 /*处理接触时的逻辑*/
-public class HelloServerHandler extends SimpleChannelInboundHandler<String> {
+public class HelloServerHandler extends SimpleChannelInboundHandler<Object> {
 
     public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
@@ -46,7 +46,7 @@ public class HelloServerHandler extends SimpleChannelInboundHandler<String> {
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
         // 收到消息直接打印输出
         System.out.println(ctx.channel().remoteAddress() + " Say : " + msg);
         // 返回客户端消息 - 我已经接收到了你的消息

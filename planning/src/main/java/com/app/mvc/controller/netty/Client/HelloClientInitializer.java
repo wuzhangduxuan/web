@@ -23,7 +23,7 @@ public class HelloClientInitializer extends ChannelInitializer<SocketChannel> {
          * 解码和编码 我将会在下一张为大家详细的讲解。再次暂时不做详细的描述
          *
          * */
-        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+      //  pipeline.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
         pipeline.addLast("decoder", new StringDecoder());
         pipeline.addLast("encoder", new StringEncoder());
 

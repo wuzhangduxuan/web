@@ -7,10 +7,11 @@ import io.netty.channel.SimpleChannelInboundHandler;
 /**
  * Created by Administrator on 2017/1/16.
  */
-public class HelloClientHandler extends SimpleChannelInboundHandler<String> {
+public class HelloClientHandler extends SimpleChannelInboundHandler<Object> {
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
+
         System.out.println("Server say : " + msg);
     }
 

@@ -25,7 +25,7 @@ public class ServerNetty {
     /**
      * 服务端监听的端口地址
      */
-    private static final int portNumber=7882;
+    private static final int portNumber=7397;
 
     @Autowired
     private HelloServerHandler helloServerHandler;

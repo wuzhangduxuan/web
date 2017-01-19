@@ -25,11 +25,11 @@
     <servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>WEB-INF/dispatcher-servlet.xml</param-value>
         </init-param>
+        <load-on-startup>1</load-on-startup>
 	</servlet>
     <!--不知道为什么在url-pattern使用/*配置会出现访问不了jsp页面的情况-->
     <servlet-mapping>
