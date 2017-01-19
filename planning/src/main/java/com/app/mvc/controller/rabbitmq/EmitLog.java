@@ -19,6 +19,7 @@ public class EmitLog {
     public static void main(String[] args){
         ConnectionFactory factory=new ConnectionFactory();
 
+
         factory.setHost("localhost");
 
         try {

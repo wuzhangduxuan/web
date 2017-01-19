@@ -27,6 +27,7 @@ public class SubReqClientHandler extends SimpleChannelInboundHandler<Object> {
 
         EmpBean emp= (EmpBean) msg;
 
+
         System.out.println("年龄:"+emp.getEmpAge());
     }
 

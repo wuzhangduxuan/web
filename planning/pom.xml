@@ -232,6 +232,7 @@
             <version>1.4.5.RELEASE</version>
         </dependency>
 
+
         <!-- redis -->
         <dependency>
             <groupId>redis.clients</groupId>
