@@ -13,4 +13,6 @@ public  class Global {
     public static ChannelGroup channels =
             new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
+
+
 }

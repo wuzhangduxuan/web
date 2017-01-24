@@ -72,7 +72,7 @@ public class MyServerHandler extends SimpleChannelInboundHandler<Object> {
         if (first) {
             System.out.println("创建文件");
             first = false;
-            File file = new File("C://test" + new SimpleDateFormat("yyyymmddhhmmss").format(new Date()) + ".zip");
+            File file = new File("C://test" + new SimpleDateFormat("yyyymmddhhmmss").format(new Date()) + ".png");
             if (!file.exists()) {
                 try {
                     file.createNewFile();

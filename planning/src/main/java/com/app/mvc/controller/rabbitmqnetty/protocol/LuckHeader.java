@@ -6,6 +6,9 @@ package com.app.mvc.controller.rabbitmqnetty.protocol;
  */
 public class LuckHeader {
 
+    public LuckHeader(){
+
+    }
     // 协议版本
     private int version;
     // 消息内容长度

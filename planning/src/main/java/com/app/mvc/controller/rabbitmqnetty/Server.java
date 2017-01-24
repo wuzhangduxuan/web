@@ -15,41 +15,33 @@ import io.netty.handler.logging.LoggingHandler;
  * Created by Administrator on 2017/1/19.
  */
 public class Server {
+    // 指定端口号
+    private static final int PORT = 2008;
 
-    //指定端口
-    private final static int port=1998;
+    public static void main(String args[]) throws InterruptedException {
 
-    public void init(){
-
-        EventLoopGroup bossGroup=new NioEventLoopGroup();
-        EventLoopGroup workerGroup=new NioEventLoopGroup();
-
-
-        ServerBootstrap bootstrap=new ServerBootstrap();
-
-        bootstrap.option(ChannelOption.SO_BACKLOG,1024);
-
-        bootstrap.group(bossGroup,workerGroup)
-                .channel(NioServerSocketChannel.class)
-                .handler(new LoggingHandler(LogLevel.INFO))
-                .childHandler(new ServerInitializer());
-
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
+        EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
-            Channel ch=bootstrap.bind(port).sync().channel();
 
-            System.out.println("启动协议");
+            ServerBootstrap serverBootstrap = new ServerBootstrap();
+            // 指定socket的一些属性
+            serverBootstrap.option(ChannelOption.SO_BACKLOG, 1024);
+            serverBootstrap.group(bossGroup, workerGroup)
+                    .channel(NioServerSocketChannel.class)  // 指定是一个NIO连接通道
+                    .handler(new LoggingHandler(LogLevel.INFO))
+                    .childHandler(new ServerInitializer());
 
-            //监听端口关闭
+            // 绑定对应的端口号,并启动开始监听端口上的连接
+            Channel ch = serverBootstrap.bind(PORT).sync().channel();
 
+            System.out.printf("luck协议启动地址：127.0.0.1:%d/\n", PORT);
+
+            // 等待关闭,同步端口
             ch.closeFuture().sync();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        finally {
+        } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
-
-
     }
 }

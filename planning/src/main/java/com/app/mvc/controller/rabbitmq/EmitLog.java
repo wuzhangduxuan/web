@@ -15,6 +15,7 @@ import java.util.concurrent.TimeoutException;
 public class EmitLog {
 
     private final static String EXCHANGE_NAME="ex_log";
+    private final static String QUEUE_NAME="ex_log_queue";
 
     public static void main(String[] args){
         ConnectionFactory factory=new ConnectionFactory();
@@ -29,7 +30,12 @@ public class EmitLog {
 
             channel.exchangeDeclare(EXCHANGE_NAME,"fanout");
 
+            //channel.queueDeclare(QUEUE_NAME,true,false,false,null);
+
+           // channel.queueBind(QUEUE_NAME,EXCHANGE_NAME,"");
+
             String message=new Date().toString()+":log.something";
+
 
             channel.basicPublish(EXCHANGE_NAME,"",null,message.getBytes());
 

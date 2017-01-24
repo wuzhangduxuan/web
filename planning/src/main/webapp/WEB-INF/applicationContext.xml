@@ -13,13 +13,16 @@
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <import resource="classpath:spring-redis.xml"/>
+    <import resource="classpath:spring-rabbitmq.xml"/>
     <import resource="classpath:spring-mybatis.xml"/>
 
     <mvc:annotation-driven/>
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="com.app.mvc.controller.netty.server"/>
+    <context:component-scan base-package="com.app.mvc.controller.netty.server,
+    com.app.mvc.controller"/>
 
 
 

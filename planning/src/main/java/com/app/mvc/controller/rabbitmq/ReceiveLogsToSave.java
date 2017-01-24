@@ -28,13 +28,15 @@ public class ReceiveLogsToSave {
             channel.exchangeDeclare(EXCHANGE_NAME,"fanout");
 
             //创建一个非持久的，唯一的且自动删除的队列
-            String queueName=channel.queueDeclare().getQueue();
+            String queueName12="log1";
+
             //为转发器指定队列
-            channel.queueBind(queueName,EXCHANGE_NAME,"");
+            channel.queueBind(queueName12,EXCHANGE_NAME,"");
+
 
             QueueingConsumer consumer=new QueueingConsumer(channel);
             //第二个参数表明是否自动应答
-            channel.basicConsume(queueName,true,consumer);
+            channel.basicConsume(queueName12,false,consumer);
 
             for (;;){
                 QueueingConsumer.Delivery delivery=consumer.nextDelivery();
@@ -42,6 +44,7 @@ public class ReceiveLogsToSave {
                 String message=new String(delivery.getBody());
 
                 System.out.println("接收到信息"+message);
+                //channel.basicAck(delivery.getEnvelope().getDeliveryTag(),false);
             }
         } catch (IOException e) {
             e.printStackTrace();

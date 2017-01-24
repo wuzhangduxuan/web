@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/rabbit
+       http://www.springframework.org/schema/rabbit/spring-rabbit-1.4.xsd">
+
+    <!--连接服务配置-->
+    <rabbit:connection-factory id="connectionFactory" host="localhost"/>
+
+    <rabbit:admin connection-factory="connectionFactory" id="rabbitAdmin"/>
+    <!-- queue 队列声明-->
+    <rabbit:queue id="queue_one" durable="true" auto-delete="false" exclusive="false" name="queue_one"/>
+
+
+    <!-- exchange queue binging key 绑定 -->
+    <rabbit:direct-exchange name="my-mq-exchange" durable="true" auto-delete="false" id="my-mq-exchange">
+        <rabbit:bindings>
+            <rabbit:binding queue="queue_one" key="queue_one_key"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <!-- spring amqp默认的是jackson 的一个插件,目的将生产者生产的数据转换为json存入消息队列，由于fastjson的速度快于jackson,这里替换为fastjson的一个实现 -->
+    <bean id="jsonMessageConverter"  class="com.app.mvc.controller.FastJsonMessageConverter"></bean>
+
+    <!-- spring template声明-->
+    <rabbit:template exchange="my-mq-exchange" id="amqpTemplate"  connection-factory="connectionFactory"  message-converter="jsonMessageConverter"/>
+
+    <bean class="com.app.mvc.controller.QueueOneLitener" id="queueOneLitener">
+    </bean>
+
+    <!--异步线程池-->
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="3"/>
+        <property name="maxPoolSize" value="10"/>
+        <property name="queueCapacity" value="3"/>
+        <property name="keepAliveSeconds" value="300"/>
+
+    </bean>
+
+    <!-- queue litener  观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象-->
+    <rabbit:listener-container id="container" connection-factory="connectionFactory" acknowledge="auto" task-executor="taskExecutor">
+
+    </rabbit:listener-container>
+
+</beans>

@@ -6,10 +6,14 @@ package com.app.mvc.controller.rabbitmqnetty.protocol;
  */
 public class LuckMessage {
 
-    private LuckHeader luckHeader;
-    private String content;
+    public LuckMessage (){
 
-    public LuckMessage(LuckHeader luckHeader, String content) {
+    }
+
+    private LuckHeader luckHeader;
+    private byte[] content;
+
+    public LuckMessage(LuckHeader luckHeader, byte[] content) {
         this.luckHeader = luckHeader;
         this.content = content;
     }
@@ -22,11 +26,11 @@ public class LuckMessage {
         this.luckHeader = luckHeader;
     }
 
-    public String getContent() {
+    public byte[] getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(byte[] content) {
         this.content = content;
     }
 
